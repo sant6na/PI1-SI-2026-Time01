@@ -112,7 +112,6 @@ def menu_inicial():
             selec = int(input("Digite sua escolha: "))
         except ValueError:
              print("Digite apenas números!")
-             Menu()
         else:
             if selec > 4 or selec < 0:
                 print("Selecione uma opção válida")
