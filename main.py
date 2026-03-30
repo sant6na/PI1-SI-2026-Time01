@@ -1,4 +1,4 @@
-# Função do menu de cadastro, arrumar dps para corresponder o que precisa dos requesitos
+# Função do menu de cadastro, arrumar dps para corresponder o que precisa dos requisitos
 def menu_cadastro():
     while True:
         print("Menu de Cadasto:"
@@ -7,28 +7,23 @@ def menu_cadastro():
             '\n0- Voltar')
         try: 
             selec = int(input("Digite sua escolha: "))
-            
         except ValueError:
             print("Digite apenas números!")
-        
         else:
             if selec > 2 or selec < 0:
                 print("Digite uma opção válida!")
-            
             elif selec == 1:
                 print("Cadastro...")
                 # Mudar para uma def quando essa parte estiver pronta
-            
             elif selec == 2:
                 print("Editar...")
                 # Mudar para uma def quando essa parte estiver pronta
-            
             elif selec == 0:
                 print("Voltando...")
                 break
             
 
-# Função do menu de solicitação, arrumar dps para corresponder o que precisa dos requesitos
+# Função do menu de solicitação, arrumar dps para corresponder o que precisa dos requisitos
 def menu_solicita():
     while True:
         print("Menu de Solicitação:"
@@ -36,25 +31,21 @@ def menu_solicita():
             '\n0- Voltar')
         try: 
             selec = int(input("Digite sua escolha: "))
-            
         except ValueError:
             print("Digite apenas números!")
-        
         else:
             if selec > 1 or selec < 0:
                 print("Digite uma opção válida!")
-            
             elif selec == 1:
                 print("Solicitação...")
-                # Mudar para uma def quando essa parte estiver pronta
-            
+                # Mudar para uma def quando essa parte estiver pronta  
             elif selec == 0:
                 print("Voltando...")
                 break
 
 
 
-# Função do menu de consulta, arrumar dps para corresponder o que precisa dos requesitos
+# Função do menu de consulta, arrumar dps para corresponder o que precisa dos requisitos
 def menu_consulta():
     while True:
         print("Menu de Consulta: "
@@ -63,29 +54,24 @@ def menu_consulta():
             '\n0- Voltar')
         try: 
             selec = int(input("Digite sua escolha: "))
-            
         except ValueError:
             print("Digite apenas números!")
-        
         else:
             if selec > 2 or selec < 0:
                 print("Digite uma opção válida!")
-            
             elif selec == 1:
                 print("Consulta...")
                 # Mudar para uma def quando essa parte estiver pronta
-            
             elif selec == 2:
                 print("Atualizar...")
                 # Mudar para uma def quando essa parte estiver pronta
-            
             elif selec == 0:
                 print("Voltando...")
                 break
 
 
 
-# Função do menu de estatiscas, arrumar dps para corresponder o que precisa dos requesitos
+# Função do menu de estatiscas, arrumar dps para corresponder o que precisa dos requisitos
 def menu_estatistica():
     while True:
         print("Menu de Estatíscas: "
@@ -94,22 +80,17 @@ def menu_estatistica():
             '\n0- Voltar')
         try: 
             selec = int(input("Digite sua escolha: "))
-            
         except ValueError:
             print("Digite apenas números!")
-        
         else:
             if selec > 2 or selec < 0:
                 print("Digite uma opção válida!")
-            
             elif selec == 1:
                 print("Estatíscas...")
                 # Mudar para uma def quando essa parte estiver pronta
-            
             elif selec == 2:
                 print("Atualizar...")
                 # Mudar para uma def quando essa parte estiver pronta
-            
             elif selec == 0:
                 print("Voltando...")
                 break
