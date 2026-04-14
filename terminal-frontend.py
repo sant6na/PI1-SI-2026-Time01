@@ -187,7 +187,7 @@ def cadastro_inicial():
     while True:
         print("\n1 - Cadastrar")
         print("2 - Listar usuários")
-        print("3 - Sair")
+        print("0 - Sair")
         
         opcao = input("Escolha: ")
         
@@ -195,7 +195,7 @@ def cadastro_inicial():
             cadastrar()
         elif opcao == "2":
             listar()
-        elif opcao == "3":
+        elif opcao == "0":
             print("Saindo...")
             break
         else:
