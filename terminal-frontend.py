@@ -131,8 +131,74 @@ def menu_inicial():
             
 # Não remova esse menu_inicial() do final, plmds
 # Deixe ele sempre no final do código
-menu_inicial()
 
-# teste de git
         
+import re
 
+usuarios = []
+
+def login():
+    print("=== Login ===")
+    
+def validar_email(email):
+    padrao = r'^[\w\.-]+@[\w\.-]+\.\w+$'
+    return re.match(padrao, email)
+
+def cadastrar():
+    print("=== Cadastro de Usuário ===")
+    
+    nome = input("Digite seu nome: ")
+    if nome == "":
+        print("Nome não pode ser vazio.")
+        return
+    
+    email = input("Digite seu email: ")
+    if not validar_email(email):
+        print("Email inválido.")
+        return
+    
+    senha = input("Digite sua senha (mínimo 6 caracteres): ")
+    if len(senha) < 6:
+        print("Senha muito curta.")
+        return
+    
+    confirmar = input("Confirme sua senha: ")
+    if senha != confirmar:
+        print("As senhas não coincidem.")
+        return
+    
+    usuario = {
+        "nome": nome,
+        "email": email,
+        "senha": senha
+    }
+    
+    usuarios.append(usuario)
+    print("Cadastro realizado com sucesso!")
+    menu_inicial()
+
+def listar():
+    print("\n=== Usuários Cadastrados ===")
+    for u in usuarios:
+        print(f"Nome: {u['nome']} | Email: {u['email']}")
+
+# Menu
+def cadastro_inicial():
+    while True:
+        print("\n1 - Cadastrar")
+        print("2 - Listar usuários")
+        print("3 - Sair")
+        
+        opcao = input("Escolha: ")
+        
+        if opcao == "1":
+            cadastrar()
+        elif opcao == "2":
+            listar()
+        elif opcao == "3":
+            print("Saindo...")
+            break
+        else:
+            print("Opção inválida.")
+            #requisitos do cadastro pronto      
+cadastro_inicial()  
