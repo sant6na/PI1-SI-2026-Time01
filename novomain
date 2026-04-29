@@ -2,9 +2,10 @@ import mysql.connector
 from mysql.connector import Error
 from datetime import datetime
 
-# ─────────────────────────────────────────────
+###
 #  CONEXÃO
-# ─────────────────────────────────────────────
+###
+
 
 def criar_conexao():
     try:
@@ -20,9 +21,9 @@ def criar_conexao():
         return None
 
 
-# ─────────────────────────────────────────────
-#  CRUD – SOLICITANTES
-# ─────────────────────────────────────────────
+###
+#  CRUD
+###
 
 def listar_solicitantes():
     """Exibe todos os solicitantes cadastrados."""
@@ -350,9 +351,9 @@ def excluir_solicitacao():
         cursor.close()
         conn.close()
         
-# ─────────────────────────────────────────────
+###
 #  ESTATÍSTICAS
-# ─────────────────────────────────────────────
+###
 
 def ver_estatisticas():
     """Exibe um resumo estatístico das solicitações."""
@@ -401,9 +402,9 @@ def ver_estatisticas():
         conn.close()
 
 
-# ─────────────────────────────────────────────
+###
 #  MENUS
-# ─────────────────────────────────────────────
+###
 
 def menu_cadastro():
     opcoes = {
