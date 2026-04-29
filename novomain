@@ -9,7 +9,7 @@ from datetime import datetime
 def criar_conexao():
     try:
         conexao = mysql.connector.connect(
-            host='BD-ACD',
+            host='172.16.12.14',
             user='BD240226189',
             password='Dgqhx7',
             database='BD240226189'
@@ -23,6 +23,35 @@ def criar_conexao():
 # ─────────────────────────────────────────────
 #  CRUD – SOLICITANTES
 # ─────────────────────────────────────────────
+
+def listar_solicitantes():
+    """Exibe todos os solicitantes cadastrados."""
+    print("\n── Listar Solicitantes ──")
+
+    conn = criar_conexao()
+    if not conn:
+        return
+    try:
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM cadastro_solicitantes ORDER BY nome")
+        rows = cursor.fetchall()
+
+        if not rows:
+            print("Nenhum solicitante cadastrado.")
+            return
+
+        print(f"\n{'Codigo':<8} {'Nome':<30} {'Email':<35} {'Telefone'}")
+        print("─" * 80)
+        for row in rows:
+            # 0=codigo, 1=nome, 2=email, 3=telefone
+            print(f"{row[0]:<8} {row[1]:<30} {row[2]:<35} {row[3]}")
+
+    except Error as e:
+        print(f"Erro ao listar solicitantes: {e}")
+    finally:
+        cursor.close()
+        conn.close()
+
 
 def cadastrar_solicitante():
     """Insere um novo solicitante na tabela cadastro_solicitantes."""
@@ -43,7 +72,7 @@ def cadastrar_solicitante():
         sql = "INSERT INTO cadastro_solicitantes (nome, email, telefone) VALUES (%s, %s, %s)"
         cursor.execute(sql, (nome, email, telefone))
         conn.commit()
-        print(f"Solicitante '{nome}' cadastrado com sucesso! (ID: {cursor.lastrowid})")
+        print(f"Solicitante '{nome}' cadastrado com sucesso! (Codigo: {cursor.lastrowid})")
     except Error as e:
         print(f"Erro ao cadastrar solicitante: {e}")
     finally:
@@ -51,42 +80,15 @@ def cadastrar_solicitante():
         conn.close()
 
 
-def listar_solicitantes():
-    """Exibe todos os solicitantes cadastrados."""
-    print("\n── Listar Solicitantes ──")
-
-    conn = criar_conexao()
-    if not conn:
-        return
-    try:
-        cursor = conn.cursor()
-        cursor.execute("SELECT * FROM cadastro_solicitantes ORDER BY nome")
-        rows = cursor.fetchall()
-
-        if not rows:
-            print("Nenhum solicitante cadastrado.")
-            return
-
-        print(f"\n{'ID':<6} {'Nome':<30} {'Email':<35} {'Telefone'}")
-        print("─" * 80)
-        for row in rows:
-            print(f"{row[0]:<6} {row[1]:<30} {row[2]:<35} {row[3]}")
-
-    except Error as e:
-        print(f"Erro ao listar solicitantes: {e}")
-    finally:
-        cursor.close()
-        conn.close()
-
 def editar_solicitante():
     """Atualiza os dados de um solicitante existente."""
     print("\n── Editar Solicitante ──")
     listar_solicitantes()
 
     try:
-        id_editar = int(input("\nDigite o ID do solicitante a editar: "))
+        codigo_editar = int(input("\nDigite o Codigo do solicitante a editar: "))
     except ValueError:
-        print("ID inválido.")
+        print("Codigo inválido.")
         return
 
     conn = criar_conexao()
@@ -94,12 +96,13 @@ def editar_solicitante():
         return
     try:
         cursor = conn.cursor()
-        cursor.execute("SELECT * FROM cadastro_solicitantes WHERE codigo = %s", (id_editar,))
+        cursor.execute("SELECT * FROM cadastro_solicitantes WHERE codigo = %s", (codigo_editar,))
         solicitante = cursor.fetchone()
         if not solicitante:
             print("Solicitante não encontrado.")
             return
 
+        # 0=codigo, 1=nome, 2=email, 3=telefone
         print(f"\nDados atuais → Nome: {solicitante[1]} | Email: {solicitante[2]} | Telefone: {solicitante[3]}")
         print("(Pressione Enter para manter o valor atual)")
 
@@ -108,7 +111,7 @@ def editar_solicitante():
         novo_telefone = input(f"Novo telefone [{solicitante[3]}]: ").strip() or solicitante[3]
 
         sql = "UPDATE cadastro_solicitantes SET nome=%s, email=%s, telefone=%s WHERE codigo=%s"
-        cursor.execute(sql, (novo_nome, novo_email, novo_telefone, id_editar))
+        cursor.execute(sql, (novo_nome, novo_email, novo_telefone, codigo_editar))
         conn.commit()
         print("Solicitante atualizado com sucesso!")
     except Error as e:
@@ -117,18 +120,19 @@ def editar_solicitante():
         cursor.close()
         conn.close()
 
+
 def excluir_solicitante():
     """Remove um solicitante do banco de dados."""
     print("\n── Excluir Solicitante ──")
     listar_solicitantes()
 
     try:
-        id_excluir = int(input("\nDigite o ID do solicitante a excluir: "))
+        codigo_excluir = int(input("\nDigite o Codigo do solicitante a excluir: "))
     except ValueError:
-        print("ID inválido.")
+        print("Codigo inválido.")
         return
 
-    confirmacao = input(f"Confirma exclusão do ID {id_excluir}? (s/n): ").strip().lower()
+    confirmacao = input(f"Confirma exclusão do Codigo {codigo_excluir}? (s/n): ").strip().lower()
     if confirmacao != 's':
         print("Exclusão cancelada.")
         return
@@ -138,7 +142,7 @@ def excluir_solicitante():
         return
     try:
         cursor = conn.cursor()
-        cursor.execute("DELETE FROM cadastro_solicitantes WHERE codigo = %s", (id_excluir,))
+        cursor.execute("DELETE FROM cadastro_solicitantes WHERE codigo = %s", (codigo_excluir,))
         conn.commit()
         if cursor.rowcount:
             print("Solicitante excluído com sucesso!")
@@ -150,9 +154,30 @@ def excluir_solicitante():
         cursor.close()
         conn.close()
 
-# ─────────────────────────────────────────────
-#  CRUD – SOLICITAÇÕES
-# ─────────────────────────────────────────────
+
+def listar_categorias():
+    """Exibe todas as categorias disponíveis."""
+    conn = criar_conexao()
+    if not conn:
+        return
+    try:
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM categorias")
+        rows = cursor.fetchall()
+        if not rows:
+            print("Nenhuma categoria cadastrada.")
+            return
+        print(f"\n{'ID':<6} {'Categoria'}")
+        print("─" * 40)
+        for row in rows:
+            # ajuste os índices conforme as colunas da sua tabela categorias
+            print(f"{row[0]:<6} {row[1]}")
+    except Error as e:
+        print(f"Erro ao listar categorias: {e}")
+    finally:
+        cursor.close()
+        conn.close()
+
 
 def nova_solicitacao():
     """Cria uma nova solicitação vinculada a um solicitante."""
@@ -160,9 +185,9 @@ def nova_solicitacao():
     listar_solicitantes()
 
     try:
-        codigo_solicitante = int(input("\nDigite o ID do solicitante: "))
+        codigo_solicitante = int(input("\nDigite o Codigo do solicitante: "))
     except ValueError:
-        print("ID inválido.")
+        print("Codigo inválido.")
         return
 
     descricao = input("Descrição da solicitação: ").strip()
@@ -170,8 +195,11 @@ def nova_solicitacao():
         print("Descrição não pode ser vazia.")
         return
 
+    print("\nCategorias disponíveis:")
+    listar_categorias()
+
     try:
-        id_categoria = int(input("ID da categoria: "))
+        id_categoria = int(input("\nID da categoria: "))
     except ValueError:
         print("ID de categoria inválido.")
         return
@@ -183,9 +211,15 @@ def nova_solicitacao():
         return
     try:
         cursor = conn.cursor()
-        cursor.execute("SELECT id FROM cadastro_solicitantes WHERE id = %s", (codigo_solicitante,))
+
+        cursor.execute("SELECT codigo FROM cadastro_solicitantes WHERE codigo = %s", (codigo_solicitante,))
         if not cursor.fetchone():
             print("Solicitante não encontrado.")
+            return
+
+        cursor.execute("SELECT id FROM categorias WHERE id = %s", (id_categoria,))
+        if not cursor.fetchone():
+            print("Categoria não encontrada.")
             return
 
         sql = """INSERT INTO solicitacoes (codigo_solicitante, id_categoria, descricao, data_abertura, status, prioridade)
@@ -199,7 +233,6 @@ def nova_solicitacao():
         cursor.close()
         conn.close()
 
-
 def consultar_solicitacoes():
     """Exibe todas as solicitações com nome do solicitante."""
     print("\n── Consultar Solicitações ──")
@@ -210,7 +243,7 @@ def consultar_solicitacoes():
         cursor = conn.cursor()
         sql = """SELECT s.id, cs.nome, s.id_categoria, s.descricao, s.data_abertura, s.status, s.prioridade
                  FROM solicitacoes s
-                 JOIN cadastro_solicitantes cs ON s.codigo_solicitante = cs.id
+                 JOIN cadastro_solicitantes cs ON s.codigo_solicitante = cs.codigo
                  ORDER BY s.data_abertura DESC"""
         cursor.execute(sql)
         rows = cursor.fetchall()
@@ -220,7 +253,6 @@ def consultar_solicitacoes():
         print(f"\n{'ID':<6} {'Solicitante':<25} {'Categ':<7} {'Status':<12} {'Prioridade':<11} {'Abertura':<20} Descrição")
         print("─" * 110)
         for r in rows:
-            # 0=id, 1=nome, 2=id_categoria, 3=descricao, 4=data_abertura, 5=status, 6=prioridade
             data = r[4].strftime('%d/%m/%Y %H:%M') if r[4] else '-'
             print(f"{r[0]:<6} {r[1]:<25} {r[2]:<7} {r[5]:<12} {r[6]:<11} {data:<20} {r[3]}")
     except Error as e:
@@ -253,13 +285,13 @@ def atualizar_solicitacao():
             return
 
         # 0=id, 1=codigo_solicitante, 2=id_categoria, 3=descricao, 4=data_abertura, 5=status, 6=prioridade
-        print(f"\nStatus atual   : {sol[5]}")
+        print(f"\nStatus atual    : {sol[5]}")
         print(f"Prioridade atual: {sol[6]}")
-        print("Status disponíveis: Aberta | Em andamento | Concluída | Cancelada")
+        print("Status disponíveis  : Aberta | Em andamento | Concluída | Cancelada")
         print("Prioridades disponíveis: Baixa | Média | Alta")
 
-        novo_status    = input(f"Novo status [{sol[5]}]: ").strip() or sol[5]
-        nova_desc      = input(f"Nova descrição [{sol[3]}]: ").strip() or sol[3]
+        novo_status     = input(f"Novo status [{sol[5]}]: ").strip() or sol[5]
+        nova_desc       = input(f"Nova descrição [{sol[3]}]: ").strip() or sol[3]
         nova_prioridade = input(f"Nova prioridade [{sol[6]}]: ").strip() or sol[6]
 
         sql = "UPDATE solicitacoes SET status=%s, descricao=%s, prioridade=%s WHERE id=%s"
@@ -271,7 +303,8 @@ def atualizar_solicitacao():
     finally:
         cursor.close()
         conn.close()
-        
+
+
 def excluir_solicitacao():
     """Remove uma solicitação do banco de dados."""
     print("\n── Excluir Solicitação ──")
@@ -293,7 +326,7 @@ def excluir_solicitacao():
         return
     try:
         cursor = conn.cursor()
-        cursor.execute("DELETE FROM solicitacoes WHERE codigo = %s", (id_sol,))
+        cursor.execute("DELETE FROM solicitacoes WHERE id = %s", (id_sol,))
         conn.commit()
         if cursor.rowcount:
             print("Solicitação excluída com sucesso!")
@@ -304,7 +337,7 @@ def excluir_solicitacao():
     finally:
         cursor.close()
         conn.close()
-
+        
 # ─────────────────────────────────────────────
 #  ESTATÍSTICAS
 # ─────────────────────────────────────────────
@@ -316,21 +349,21 @@ def ver_estatisticas():
     if not conn:
         return
     try:
-        cursor = conn.cursor(dictionary=True)
+        cursor = conn.cursor()
 
-        cursor.execute("SELECT COUNT(*) AS total FROM cadastro_solicitantes")
-        total_solic = cursor.fetchone()['total']
+        cursor.execute("SELECT COUNT(*) FROM cadastro_solicitantes")
+        total_solic = cursor.fetchone()[0]
 
-        cursor.execute("SELECT COUNT(*) AS total FROM solicitacoes")
-        total_req = cursor.fetchone()['total']
+        cursor.execute("SELECT COUNT(*) FROM solicitacoes")
+        total_req = cursor.fetchone()[0]
 
-        cursor.execute("SELECT status, COUNT(*) AS qtd FROM solicitacoes GROUP BY status")
+        cursor.execute("SELECT status, COUNT(*) FROM solicitacoes GROUP BY status")
         por_status = cursor.fetchall()
 
         cursor.execute("""
             SELECT cs.nome, COUNT(s.id) AS qtd
             FROM solicitacoes s
-            JOIN cadastro_solicitantes cs ON s.id_solicitante = cs.id
+            JOIN cadastro_solicitantes cs ON s.codigo_solicitante = cs.codigo
             GROUP BY cs.nome ORDER BY qtd DESC LIMIT 5
         """)
         top_solic = cursor.fetchall()
@@ -340,12 +373,15 @@ def ver_estatisticas():
 
         print("\nSolicitações por status:")
         for row in por_status:
-            print(f"  {row['status']:<20}: {row['qtd']}")
+            # 0=status, 1=quantidade
+            print(f"  {row[0]:<20}: {row[1]}")
 
         if top_solic:
             print("\nTop 5 solicitantes com mais solicitações:")
             for i, row in enumerate(top_solic, 1):
-                print(f"  {i}. {row['nome']} – {row['qtd']} solicitação(ões)")
+                # 0=nome, 1=quantidade
+                print(f"  {i}. {row[0]} – {row[1]} solicitação(ões)")
+
     except Error as e:
         print(f"Erro ao gerar estatísticas: {e}")
     finally:
