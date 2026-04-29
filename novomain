@@ -285,19 +285,31 @@ def atualizar_solicitacao():
             return
 
         # 0=id, 1=codigo_solicitante, 2=id_categoria, 3=descricao, 4=data_abertura, 5=status, 6=prioridade
-        print(f"\nStatus atual    : {sol[5]}")
-        print(f"Prioridade atual: {sol[6]}")
-        print("Status disponíveis  : Aberta | Em andamento | Concluída | Cancelada")
-        print("Prioridades disponíveis: Baixa | Média | Alta")
+        opcoes_status = {1: "Aberta", 2: "Em andamento", 3: "Fechada"}
+        opcoes_prio   = {1: "Baixa", 2: "Média", 3: "Alta"}
 
-        novo_status     = input(f"Novo status [{sol[5]}]: ").strip() or sol[5]
-        nova_desc       = input(f"Nova descrição [{sol[3]}]: ").strip() or sol[3]
-        nova_prioridade = input(f"Nova prioridade [{sol[6]}]: ").strip() or sol[6]
+        print(f"\nStatus atual: {sol[5]}")
+        print("  1- Aberta  2- Em andamento  3- Fechada")
+        try:
+            sel_status = int(input("Novo status (Enter para manter): ") or 0)
+            novo_status = opcoes_status.get(sel_status, sol[5])
+        except ValueError:
+            novo_status = sol[5]
+
+        nova_desc = input(f"Nova descrição [{sol[3]}]: ").strip() or sol[3]
+
+        print(f"\nPrioridade atual: {sol[6]}")
+        print("  1- Baixa  2- Média  3- Alta")
+        try:
+            sel_prio = int(input("Nova prioridade (Enter para manter): ") or 0)
+            nova_prioridade = opcoes_prio.get(sel_prio, sol[6])
+        except ValueError:
+            nova_prioridade = sol[6]
 
         sql = "UPDATE solicitacoes SET status=%s, descricao=%s, prioridade=%s WHERE id=%s"
         cursor.execute(sql, (novo_status, nova_desc, nova_prioridade, id_sol))
         conn.commit()
-        print("Solicitação atualizada com sucesso!")
+        print(f"Solicitação atualizada! Status: {novo_status} | Prioridade: {nova_prioridade}")
     except Error as e:
         print(f"Erro ao atualizar solicitação: {e}")
     finally:
