@@ -1,3 +1,4 @@
+import re
 import mysql.connector
 from mysql.connector import Error
 from datetime import datetime
@@ -34,7 +35,7 @@ def listar_solicitantes():
         return
     try:
         cursor = conn.cursor()
-        cursor.execute("SELECT * FROM cadastro_solicitantes ORDER BY nome")
+        cursor.execute("SELECT * FROM cadastro_solicitantes ORDER BY codigo asc")
         rows = cursor.fetchall()
 
         if not rows:
@@ -55,21 +56,43 @@ def listar_solicitantes():
 
 
 def cadastrar_solicitante():
-    """Insere um novo solicitante na tabela cadastro_solicitantes."""
     print("\n── Cadastrar Solicitante ──")
     nome     = input("Nome: ").strip()
-    email    = input("Email: ").strip()
-    telefone = input("Telefone: ").strip()
+    email    = input("Email (opcional): ").strip()
+    telefone = input("Telefone (opcional, ex: (19) 99999-0000): ").strip()
 
     if not nome:
         print("Nome não pode ser vazio.")
+        return
+    if not email and not telefone:
+        print("Informe ao menos um meio de contato (email ou telefone).")
+        return
+    if email and not validar_email(email):
+        print("Email inválido. Use o formato: exemplo@dominio.com")
+        return
+    if telefone and not validar_telefone(telefone):
+        print("Telefone inválido. Use o formato: (19) 99999-0000")
         return
 
     conn = criar_conexao()
     if not conn:
         return
+    cursor = None
     try:
         cursor = conn.cursor()
+
+        if email:
+            cursor.execute("SELECT codigo FROM cadastro_solicitantes WHERE email = %s", (email,))
+            if cursor.fetchone():
+                print(f"Erro: o email '{email}' já está cadastrado.")
+                return
+
+        if telefone:
+            cursor.execute("SELECT codigo FROM cadastro_solicitantes WHERE telefone = %s", (telefone,))
+            if cursor.fetchone():
+                print(f"Erro: o telefone '{telefone}' já está cadastrado.")
+                return
+
         sql = "INSERT INTO cadastro_solicitantes (nome, email, telefone) VALUES (%s, %s, %s)"
         cursor.execute(sql, (nome, email, telefone))
         conn.commit()
@@ -77,9 +100,20 @@ def cadastrar_solicitante():
     except Error as e:
         print(f"Erro ao cadastrar solicitante: {e}")
     finally:
-        cursor.close()
+        if cursor:
+            cursor.close()
         conn.close()
 
+    
+def validar_email(email):
+    """Verifica se o email tem um formato válido."""
+    padrao = r'^[\w\.-]+@[\w\.-]+\.\w{2,}$'
+    return re.match(padrao, email) is not None
+
+def validar_telefone(telefone):
+    """Verifica se o telefone tem um formato válido. Ex: (19) 99999-0000"""
+    padrao = r'^\(?\d{2}\)?\s?\d{4,5}-?\d{4}$'
+    return re.match(padrao, telefone) is not None
 
 def editar_solicitante():
     """Atualiza os dados de um solicitante existente."""
@@ -95,8 +129,11 @@ def editar_solicitante():
     conn = criar_conexao()
     if not conn:
         return
+    cursor = None
     try:
         cursor = conn.cursor()
+
+        # Busca os dados atuais do solicitante
         cursor.execute("SELECT * FROM cadastro_solicitantes WHERE codigo = %s", (codigo_editar,))
         solicitante = cursor.fetchone()
         if not solicitante:
@@ -111,6 +148,38 @@ def editar_solicitante():
         novo_email    = input(f"Novo email [{solicitante[2]}]: ").strip() or solicitante[2]
         novo_telefone = input(f"Novo telefone [{solicitante[3]}]: ").strip() or solicitante[3]
 
+        if not novo_nome:
+            print("Nome não pode ser vazio.")
+            return
+        if not novo_email and not novo_telefone:
+            print("Informe ao menos um meio de contato (email ou telefone).")
+            return
+        if novo_email and not validar_email(novo_email):
+            print("Email inválido. Use o formato: exemplo@dominio.com")
+            return
+        if novo_telefone and not validar_telefone(novo_telefone):
+            print("Telefone inválido. Use o formato: (19) 99999-0000")
+            return
+
+        # Verifica duplicidade ignorando o próprio registro
+        if novo_email:
+            cursor.execute(
+                "SELECT codigo FROM cadastro_solicitantes WHERE email = %s AND codigo != %s",
+                (novo_email, codigo_editar)
+            )
+            if cursor.fetchone():
+                print(f"Erro: o email '{novo_email}' já está cadastrado.")
+                return
+
+        if novo_telefone:
+            cursor.execute(
+                "SELECT codigo FROM cadastro_solicitantes WHERE telefone = %s AND codigo != %s",
+                (novo_telefone, codigo_editar)
+            )
+            if cursor.fetchone():
+                print(f"Erro: o telefone '{novo_telefone}' já está cadastrado.")
+                return
+
         sql = "UPDATE cadastro_solicitantes SET nome=%s, email=%s, telefone=%s WHERE codigo=%s"
         cursor.execute(sql, (novo_nome, novo_email, novo_telefone, codigo_editar))
         conn.commit()
@@ -118,7 +187,8 @@ def editar_solicitante():
     except Error as e:
         print(f"Erro ao editar solicitante: {e}")
     finally:
-        cursor.close()
+        if cursor:
+            cursor.close()
         conn.close()
 
 
@@ -171,7 +241,6 @@ def listar_categorias():
         print(f"\n{'ID':<6} {'Categoria'}")
         print("─" * 40)
         for row in rows:
-            # ajuste os índices conforme as colunas da sua tabela categorias
             print(f"{row[0]:<6} {row[1]}")
     except Error as e:
         print(f"Erro ao listar categorias: {e}")
@@ -242,7 +311,7 @@ def consultar_solicitacoes():
         return
     try:
         cursor = conn.cursor()
-        sql = """SELECT s.id, cs.nome, s.id_categoria, s.descricao, s.data_abertura, s.status, s.prioridade
+        sql = """SELECT s.id, s.codigo_solicitante, cs.nome, s.id_categoria, s.descricao, s.data_abertura, s.status, s.prioridade
                  FROM solicitacoes s
                  JOIN cadastro_solicitantes cs ON s.codigo_solicitante = cs.codigo
                  ORDER BY s.data_abertura DESC"""
@@ -251,17 +320,89 @@ def consultar_solicitacoes():
         if not rows:
             print("Nenhuma solicitação encontrada.")
             return
-        print(f"\n{'ID':<6} {'Solicitante':<25} {'Categ':<7} {'Status':<12} {'Prioridade':<11} {'Abertura':<20} Descrição")
-        print("─" * 110)
+        print(f"\n{'ID':<6} {'Cód. Solic.':<14} {'Solicitante':<25} {'Categ':<7} {'Status':<15} {'Prioridade':<12} {'Abertura':<20} Descrição")
+        print("─" * 115)
         for r in rows:
-            data = r[4].strftime('%d/%m/%Y %H:%M') if r[4] else '-'
-            print(f"{r[0]:<6} {r[1]:<25} {r[2]:<7} {r[5]:<12} {r[6]:<11} {data:<20} {r[3]}")
+            data = r[5].strftime('%d/%m/%Y %H:%M') if r[5] else '-'
+            print(f"{r[0]:<6} {r[1]:<14} {r[2]:<25} {r[3]:<7} {r[6]:<15} {r[7]:<12} {data:<20} {r[4]}")
     except Error as e:
         print(f"Erro ao consultar solicitações: {e}")
     finally:
         cursor.close()
         conn.close()
+            
+def consultar_solicitacoes_filtro():
+    """Consulta solicitações com filtros opcionais."""
+    print("\n── Filtrar Solicitações ──")
+    print("(Pressione Enter para ignorar o filtro)")
 
+    # Mostra as opções disponíveis para ajudar o usuário
+    print("\nPrioridade: Baixa | Media | Alta")
+    filtro_prioridade = input("Filtrar por prioridade: ").strip() or None
+
+    print("Status: Aberta | Em andamento | Fechada")
+    filtro_status = input("Filtrar por status: ").strip() or None
+
+    print("\nCategorias disponíveis:")
+    listar_categorias()
+    filtro_categoria = input("Filtrar por ID de categoria (número): ").strip() or None
+
+    print("\nSolicitantes disponíveis:")
+    listar_solicitantes()
+    filtro_solicitante = input("Filtrar por código do solicitante (número): ").strip() or None
+
+    conn = criar_conexao()
+    if not conn:
+        return
+    try:
+        cursor = conn.cursor()
+
+        # Query base
+        sql = """SELECT s.id, s.codigo_solicitante, cs.nome, s.id_categoria,
+                        s.descricao, s.data_abertura, s.status, s.prioridade
+                 FROM solicitacoes s
+                 JOIN cadastro_solicitantes cs ON s.codigo_solicitante = cs.codigo
+                 WHERE 1=1"""
+
+        # Cada filtro preenchido adiciona uma condição e um valor
+        parametros = []
+
+        if filtro_prioridade:
+            sql += " AND s.prioridade = %s"
+            parametros.append(filtro_prioridade)
+
+        if filtro_status:
+            sql += " AND s.status = %s"
+            parametros.append(filtro_status)
+
+        if filtro_categoria:
+            sql += " AND s.id_categoria = %s"
+            parametros.append(filtro_categoria)
+
+        if filtro_solicitante:
+            sql += " AND s.codigo_solicitante = %s"
+            parametros.append(filtro_solicitante)
+
+        sql += " ORDER BY s.data_abertura DESC"
+
+        cursor.execute(sql, parametros)
+        rows = cursor.fetchall()
+
+        if not rows:
+            print("Nenhuma solicitação encontrada com esses filtros.")
+            return
+
+        print(f"\n{'ID':<6} {'Cód. Solic.':<14} {'Solicitante':<25} {'Categ':<7} {'Status':<15} {'Prioridade':<12} {'Abertura':<20} Descrição")
+        print("─" * 115)
+        for r in rows:
+            data = r[5].strftime('%d/%m/%Y %H:%M') if r[5] else '-'
+            print(f"{r[0]:<6} {r[1]:<14} {r[2]:<25} {r[3]:<7} {r[6]:<15} {r[7]:<12} {data:<20} {r[4]}")
+
+    except Error as e:
+        print(f"Erro ao filtrar solicitações: {e}")
+    finally:
+        cursor.close()
+        conn.close()
 
 def atualizar_solicitacao():
     """Atualiza descrição, status e/ou prioridade de uma solicitação."""
@@ -456,8 +597,9 @@ def menu_solicita():
 
 def menu_consulta():
     opcoes = {
-        1: ("Consultar solicitações",  consultar_solicitacoes),
-        2: ("Atualizar solicitação",   atualizar_solicitacao),
+        1: ("Consultar solicitações",          consultar_solicitacoes),
+        2: ("Consultar com filtros",           consultar_solicitacoes_filtro),
+        3: ("Atualizar solicitação",           atualizar_solicitacao),
     }
     while True:
         print("\n── Menu de Consulta ──")
@@ -475,7 +617,6 @@ def menu_consulta():
             opcoes[selec][1]()
         else:
             print("Opção inválida!")
-
 
 def menu_estatistica():
     opcoes = {
