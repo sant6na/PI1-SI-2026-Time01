@@ -514,6 +514,9 @@ def ver_estatisticas():
         cursor.execute("SELECT status, COUNT(*) FROM solicitacoes GROUP BY status")
         por_status = cursor.fetchall()
 
+        cursor.execute("SELECT prioridade, COUNT(*) FROM solicitacoes GROUP BY prioridade")
+        por_prioridade = cursor.fetchall()
+
         cursor.execute("""
             SELECT cs.nome, COUNT(s.id) AS qtd
             FROM solicitacoes s
@@ -528,6 +531,10 @@ def ver_estatisticas():
         print("\nSolicitações por status:")
         for row in por_status:
             # 0=status, 1=quantidade
+            print(f"  {row[0]:<20}: {row[1]}")
+
+        print("\nSolicitações por prioridade:")
+        for row in por_prioridade:
             print(f"  {row[0]:<20}: {row[1]}")
 
         if top_solic:
