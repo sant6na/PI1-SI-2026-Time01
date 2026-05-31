@@ -490,8 +490,8 @@ def consultar_solicitacoes_filtro():
  
  
 def atualizar_solicitacao():
-    """Atualiza descrição, status e/ou prioridade de uma solicitação.
-       A prioridade é recalculada automaticamente via urgência e impacto locais."""
+    """Atualiza descrição e/ou status de uma solicitação.
+       Solicitações fechadas não podem ser alteradas."""
     print("\n── Atualizar Solicitação ──")
     consultar_solicitacoes()
  
@@ -515,6 +515,11 @@ def atualizar_solicitacao():
         # 0=id, 1=codigo_solicitante, 2=id_categoria, 3=descricao,
         # 4=data_abertura, 5=status, 6=prioridade
  
+        # Verifica se a solicitação está fechada
+        if sol[5] == "Fechada":
+            print("\n❌ Erro: Solicitações fechadas não podem ser alteradas.")
+            return
+ 
         opcoes_status = {1: "Aberta", 2: "Em andamento", 3: "Fechada"}
  
         # Status
@@ -529,24 +534,15 @@ def atualizar_solicitacao():
         # Descrição
         nova_desc = input(f"\nNova descrição [{sol[3]}]: ").strip() or sol[3]
  
-        # Recalcula prioridade localmente via urgência e impacto
+        # Prioridade mantém seu valor (não pode ser alterada)
+        nova_prioridade = sol[6]
         print(f"\nPrioridade atual: {sol[6]}")
-        print("Informe urgência e impacto para recalcular (ou Enter em ambos para manter a prioridade atual).")
- 
-        urgencia = selecionar_urgencia()
-        impacto  = selecionar_impacto()
- 
-        if urgencia and impacto:
-            nova_prioridade = calcular_prioridade(urgencia, impacto)
-            print(f"Prioridade recalculada automaticamente: {nova_prioridade}")
-        else:
-            nova_prioridade = sol[6]
-            print(f"Prioridade mantida: {nova_prioridade}")
+        print("Nota: A prioridade não pode ser alterada após a solicitação ser criada.")
  
         sql = "UPDATE solicitacoes SET status=%s, descricao=%s, prioridade=%s WHERE id=%s"
         cursor.execute(sql, (novo_status, nova_desc, nova_prioridade, id_sol))
         conn.commit()
-        print(f"Solicitação atualizada! Status: {novo_status} | Prioridade: {nova_prioridade}")
+        print(f"Solicitação atualizada! Status: {novo_status}")
     except Error as e:
         print(f"Erro ao atualizar solicitação: {e}")
     finally:
