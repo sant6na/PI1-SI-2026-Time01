@@ -401,6 +401,102 @@ Entre os principais resultados alcançados destacam-se:
 •	Atualização do repositório GitHub e das ferramentas de gerenciamento.
 Essa etapa marcou a transição entre o planejamento realizado nas reuniões anteriores e o início efetivo da implementação do sistema.
 
+ # 6.	SEXTA REUNIÃO – ACOMPANHAMENTO DA EVOLUÇÃO E PLANEJAMENTO DAS PRÓXIMAS ETAPAS
+
+### 6.1 Objetivo da Reunião
+A sexta reunião teve como objetivo analisar o estágio atual do projeto, consolidar os resultados obtidos até o momento e definir as próximas etapas necessárias para continuidade do desenvolvimento.
+Diferentemente da reunião anterior, que teve foco na implementação inicial do sistema, esta etapa foi dedicada à avaliação do progresso alcançado pela equipe, à verificação da organização dos artefatos produzidos e ao planejamento das atividades futuras.
+Também foram identificados os requisitos que já possuíam uma estrutura definida e aqueles que ainda dependeriam de implementação nas próximas fases do projeto.
+
+### 6.2 Apresentação do Andamento do Projeto
+Durante a reunião foi realizada uma análise geral dos artefatos produzidos desde o início do desenvolvimento.
+Foi constatado que o projeto já possuía uma estrutura inicial de banco de dados e uma versão preliminar da aplicação em Python, permitindo visualizar a organização geral da solução proposta.
+Entre os principais elementos desenvolvidos até o momento destacam-se:
+•	Estrutura do banco de dados;
+•	Definição das tabelas principais;
+•	Relacionamentos entre entidades;
+•	Cadastro das categorias iniciais;
+•	Estrutura final da aplicação em Python;
+•	Menu principal da aplicação;
+•	Organização do projeto no GitHub.
+Esses elementos representavam a base necessária para o desenvolvimento das funcionalidades previstas nos requisitos do sistema.
+
+### 6.3 Estruturas Já Implementadas
+Durante a análise do projeto foi verificado que as principais estruturas de armazenamento de dados já haviam sido definidas, essas já citadas anteriormente.
+A existência dessas estruturas demonstrava que o projeto já possuía uma base consistente para armazenamento das informações necessárias ao funcionamento da aplicação.
+
+### 6.4 Estrutura da Aplicação
+Também foi apresentado o estágio atual da aplicação desenvolvida em Python.
+
+### 6.5 Verificação da Organização do Repositório
+Outro aspecto analisado durante a reunião foi a organização do projeto no GitHub.
+Foram verificadas as seguintes atividades:
+•	Existência do repositório oficial do projeto;
+•	Atualização do arquivo README;
+•	Presença das Issues relacionadas aos requisitos funcionais;
+•	Organização do GitHub Project;
+•	Armazenamento dos arquivos produzidos;
+•	Registro das alterações realizadas por meio de commits.
+A utilização dessas ferramentas permitiu manter o desenvolvimento organizado e facilitar o acompanhamento da evolução do projeto.
+
+### 6.6 Identificação das Funcionalidades Pendentes
+Após a análise das estruturas já desenvolvidas, a equipe realizou um levantamento das funcionalidades que ainda precisariam ser implementadas.
+Entre as principais pendências identificadas estavam:
+•	Cadastro completo de solicitantes;
+•	Consulta de solicitantes cadastrados;
+•	Atualização de dados dos solicitantes;
+•	Exclusão de registros;
+•	Cadastro completo de solicitações;
+•	Atualização de status das solicitações;
+•	Implementação das consultas específicas;
+•	Implementação das estatísticas previstas nos requisitos.
+
+A identificação dessas pendências permitiu organizar melhor as próximas etapas do desenvolvimento.
+
+### 6.7 Situação Atual dos Requisitos
+Com base na análise do projeto realizada durante a reunião, foi elaborado um panorama geral da situação dos requisitos funcionais.
+| Requisito |	Situação |
+|-----------|----------|
+| RF01 – Cadastro de Solicitante	| Estrutura definida |
+| RF02 – Abertura de Solicitação |	Estrutura definida |
+| RF03 – Prioridade Automática	| Regras definidas |
+| RF04 – Acompanhamento e Consultas	| Estrutura planejada |
+
+Essa visão permitiu identificar de forma clara quais requisitos já possuíam uma base estabelecida e quais ainda dependeriam de implementação nas próximas etapas do projeto.
+
+### 6.8 Definição da Próxima Etapa de Desenvolvimento
+Seguindo o planejamento do projeto, a equipe definiu que a próxima etapa prioritária seria a implementação das operações de CRUD (Create, Read, Update e Delete).
+Essa decisão foi tomada porque essas operações representam a base funcional necessária para manipulação dos dados armazenados no sistema.
+A implementação dessas funcionalidades permitiria:
+•	Cadastrar novos registros;
+•	Consultar informações existentes;
+•	Atualizar dados cadastrados;
+•	Excluir registros quando necessário.
+
+### 6.9 Atualização do Planejamento
+Ao final da reunião, o planejamento do projeto foi atualizado para refletir o estágio atual do desenvolvimento.
+As Issues existentes foram revisadas, o quadro Kanban foi atualizado e as atividades futuras foram registradas para acompanhamento.
+Essa atualização permitiu manter uma visão clara do progresso do projeto e das próximas entregas previstas.
+
+### 6.10 Resultados Obtidos
+Ao término da sexta reunião, a equipe possuía uma visão consolidada sobre o estágio atual do projeto.
+Foi possível verificar que a estrutura inicial da aplicação e do banco de dados já havia sido construída, que o ambiente de desenvolvimento se encontrava organizado e que os próximos passos estavam claramente definidos.
+A principal decisão tomada durante a reunião foi estabelecer a implementação das operações de CRUD como prioridade para a próxima fase do desenvolvimento, dando continuidade à construção das funcionalidades previstas nos requisitos do sistema.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
