@@ -244,8 +244,8 @@ Essa organização permite que o usuário tenha acesso rápido às principais fu
 
 ### 4.3 Relação entre o Menu e os Requisitos Funcionais
 Após a definição da estrutura principal de navegação, foi realizado o mapeamento entre as opções disponíveis no sistema e os requisitos funcionais definidos nas reuniões anteriores.
-| Opção |	Funcionalidade |	Requisito | Relacionado |
-|-------|----------------|------------|-------------|
+| Opção |	Funcionalidade |	Requisito Relacionado |
+|-------|----------------|------------------------|
 | 1	| Cadastro de Solicitantes |	RF01 |
 | 2	| Solicitações |	RF02 e RF03 |
 | 3	| Consultas	| RF04 |
