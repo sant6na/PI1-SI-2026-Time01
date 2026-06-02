@@ -311,6 +311,118 @@ Também foi realizado o mapeamento entre os módulos disponíveis e os requisito
 As definições estabelecidas nesta etapa serviram como base para a implementação dos menus e para o desenvolvimento das operações que compõem o sistema.
 
 
+# 5.	QUINTA REUNIÃO – INÍCIO DO DESENVOLVIMENTO DO SISTEMA
+
+### 5.1 Objetivo da Reunião
+A quinta reunião teve como objetivo iniciar efetivamente o desenvolvimento do sistema, colocando em prática as definições realizadas nas etapas anteriores.
+Diferentemente das reuniões anteriores, que tiveram foco no planejamento e na modelagem da solução, esta etapa marcou o início da implementação do banco de dados e da estrutura principal da aplicação em Python.
+As atividades foram divididas em duas frentes principais: desenvolvimento da estrutura de armazenamento dos dados e implementação da interface inicial da aplicação.
+
+### 5.2 Criação da Estrutura Inicial do Banco de Dados
+Com base nas definições realizadas durante as etapas de modelagem, foi iniciada a construção do script SQL responsável pela criação do banco de dados do projeto.
+A primeira etapa consistiu na criação da estrutura principal do banco de dados.
+
+<img width="442" height="150" alt="image" src="https://github.com/user-attachments/assets/5e72671a-c76a-4114-bc73-f0c166ad36da" />
+
+ 
+Essa configuração garante um ambiente adequado para armazenamento das informações manipuladas pela aplicação.
+
+### 5.3 Implementação da Tabela de Solicitantes
+Após a criação do banco de dados, foi implementada a estrutura destinada ao armazenamento dos solicitantes cadastrados no sistema.
+
+<img width="615" height="235" alt="image" src="https://github.com/user-attachments/assets/79f8f85b-8ec7-4a40-80b1-d2c32eb2110d" />
+
+ 
+Durante essa implementação foram utilizados conceitos relacionados à definição de chaves primárias, restrições de unicidade e seleção adequada dos tipos de dados.
+A utilização de identificadores automáticos facilita o gerenciamento dos registros e reduz a possibilidade de duplicidade.
+
+### 5.4 Implementação da Tabela de Categorias
+Também foi criada a estrutura responsável pelo armazenamento das categorias utilizadas para classificação das solicitações.
+
+<img width="570" height="140" alt="image" src="https://github.com/user-attachments/assets/7cf622a3-b20a-4074-ab67-eead5be64e7e" />
+
+ 
+Além da criação da tabela, foram definidos registros iniciais para utilização no sistema.
+
+<img width="463" height="154" alt="image" src="https://github.com/user-attachments/assets/a5282be7-78e6-4f52-8aee-e419ea90b46e" />
+
+ 
+Essas categorias permitem padronizar a classificação das solicitações cadastradas pelos usuários.
+
+### 5.5 Implementação da Tabela de Solicitações
+Em seguida, foi iniciada a implementação da principal estrutura do sistema, responsável pelo armazenamento das solicitações registradas.
+
+<img width="808" height="221" alt="image" src="https://github.com/user-attachments/assets/beedb876-8902-4a84-a020-da00bcb5b417" />
+
+ 
+Essa estrutura concentra as informações necessárias para o registro, acompanhamento e gerenciamento das solicitações realizadas pelos usuários.
+
+### 5.6 Implementação dos Relacionamentos
+Para garantir a integridade das informações armazenadas, foram implementados os relacionamentos entre as tabelas do sistema por meio de chaves estrangeiras.
+
+<img width="694" height="196" alt="image" src="https://github.com/user-attachments/assets/858abad8-d420-4fb3-a668-59178e315484" />
+
+ 
+Essas restrições garantem que toda solicitação esteja vinculada a um solicitante e a uma categoria válidos, evitando inconsistências nos dados armazenados.
+
+### 5.7 Implementação das Regras de Integridade dos Dados
+Além dos relacionamentos, também foram implementadas regras de validação para garantir que determinados campos recebessem apenas valores previamente definidos.
+
+<img width="886" height="56" alt="image" src="https://github.com/user-attachments/assets/7add4e51-cbe0-4641-bbc5-c7c79c3809fd" />
+
+ 
+Essas restrições contribuem para a integridade dos dados cadastrados, impedindo o armazenamento de valores inválidos para os campos de status e prioridade.
+A adoção dessas validações aumenta a confiabilidade das informações registradas pelo sistema.
+
+### 5.8 Início da Estrutura da Aplicação em Python
+Paralelamente ao desenvolvimento do banco de dados, foi iniciada a implementação da estrutura principal da aplicação em Python.
+O primeiro componente desenvolvido foi o menu inicial, responsável por centralizar o acesso às funcionalidades disponíveis.
+
+<img width="788" height="412" alt="image" src="https://github.com/user-attachments/assets/f0755332-20d1-4f10-ab40-97435c716746" />
+
+ 
+Esse menu representa o ponto inicial de interação entre o usuário e o sistema, permitindo o acesso organizado às funcionalidades previstas nos requisitos funcionais.
+
+### 5.9 Organização do Projeto
+Durante a implementação também foram realizadas atualizações no repositório GitHub da equipe.
+As alterações desenvolvidas foram registradas por meio de commits e associadas às Issues previamente criadas, permitindo acompanhar o progresso do projeto de forma organizada.
+O GitHub Project continuou sendo utilizado para monitorar o andamento das atividades e registrar a evolução das tarefas previstas.
+
+### 5.10 Resultados Obtidos
+Ao final da quinta reunião, a equipe havia realizado os primeiros avanços concretos no desenvolvimento da solução proposta.
+Entre os principais resultados alcançados destacam-se:
+•	Criação da estrutura inicial do banco de dados;
+•	Implementação das tabelas principais do sistema;
+•	Definição dos relacionamentos entre as entidades;
+•	Inserção das categorias iniciais;
+•	Implementação das regras de integridade dos dados;
+•	Desenvolvimento da estrutura inicial da aplicação em Python;
+•	Criação do menu principal da aplicação;
+•	Atualização do repositório GitHub e das ferramentas de gerenciamento.
+Essa etapa marcou a transição entre o planejamento realizado nas reuniões anteriores e o início efetivo da implementação do sistema.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
