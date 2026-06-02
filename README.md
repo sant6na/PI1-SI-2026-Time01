@@ -168,6 +168,8 @@ Código |	Inteiro	| Identificador do solicitante |	Sim
 | Nome |	Texto |	Nome do solicitante	| Não |
 | E-mail	| Texto |	Endereço eletrônico do solicitante |	Não |
 | Telefone |	Texto	| Número para contato	| Não |
+
+
 A definição desses campos buscou garantir que cada solicitante pudesse ser identificado de forma única dentro do sistema e associado às solicitações registradas.
 
 Observa-se que os campos definidos durante a etapa de planejamento foram posteriormente utilizados na estrutura de armazenamento dos solicitantes.
@@ -176,9 +178,9 @@ Observa-se que os campos definidos durante a etapa de planejamento foram posteri
 Durante a reunião também foi definida uma estrutura destinada à classificação das solicitações por categoria.
 Os campos planejados foram:
 | Campo	| Tipo de Dado |	Descrição	| Chave |
-|-------|--------------|------------------|
+|-------|--------------|------------|-------|
 | ID	 | Inteiro |	Identificador da categoria	| Sim |
-Categoria	Texto	| Nome da categoria |	Não |
+| Categoria |	Texto	| Nome da categoria |	Não |
 
 Além da estrutura básica, a equipe definiu algumas categorias iniciais que seriam disponibilizadas aos usuários para facilitar o registro das solicitações.
 As categorias planejadas foram:
