@@ -231,6 +231,101 @@ Também foram definidas as categorias iniciais que seriam utilizadas na classifi
 As decisões tomadas nesta etapa forneceram os elementos necessários para dar continuidade ao desenvolvimento do sistema e à implementação das funcionalidades previstas nos requisitos funcionais.
 
 
+# 4.	QUARTA REUNIÃO – DEFINIÇÃO DO FLUXO DE UTILIZAÇÃO DO SISTEMA
+
+### 4.1 Objetivo da Reunião
+A quarta reunião teve como objetivo definir o fluxo de utilização da aplicação em modo texto, estabelecendo a forma como os usuários acessariam as funcionalidades disponíveis no sistema.
+Como o projeto foi desenvolvido utilizando uma interface baseada em terminal (CLI – Command Line Interface), tornou-se necessário planejar a organização dos menus e a navegação entre as funcionalidades, garantindo uma utilização simples e intuitiva.
+As definições realizadas nesta etapa serviram como referência para a implementação da interface textual e para a integração dos requisitos funcionais ao fluxo de utilização do sistema.
+
+### 4.2 Estrutura do Menu Inicial
+Foi definido que o sistema seria iniciado por meio de um menu inicial responsável por direcionar o usuário para os diferentes módulos da aplicação.
+Essa organização permite que o usuário tenha acesso rápido às principais funcionalidades do sistema, centralizando toda a navegação em um único ponto de entrada.
+
+### 4.3 Relação entre o Menu e os Requisitos Funcionais
+Após a definição da estrutura principal de navegação, foi realizado o mapeamento entre as opções disponíveis no sistema e os requisitos funcionais definidos nas reuniões anteriores.
+| Opção |	Funcionalidade |	Requisito | Relacionado |
+|-------|----------------|------------|-------------|
+| 1	| Cadastro de Solicitantes |	RF01 |
+| 2	| Solicitações |	RF02 e RF03 |
+| 3	| Consultas	| RF04 |
+| 4	| Estatísticas |	RF04 |
+| 0	| Encerramento do Sistema	| - |
+
+Esse mapeamento permitiu verificar que todos os requisitos funcionais previstos para o projeto poderiam ser acessados por meio da estrutura de navegação definida pela equipe.
+
+### 4.4 Fluxo de Cadastro de Solicitantes
+Para o gerenciamento dos solicitantes foi definido um módulo específico contendo as operações relacionadas ao cadastro e manutenção dos registros.
+O fluxo planejado consiste em:
+1.	Acesso ao menu principal;
+2.	Seleção da opção de cadastro;
+3.	Escolha da operação desejada;
+4.	Inserção ou alteração dos dados;
+5.	Validação das informações;
+6.	Confirmação da operação;
+7.	Retorno ao menu anterior.
+Esse módulo está diretamente relacionado ao requisito funcional RF01.
+
+### 4.5 Fluxo de Abertura de Solicitações
+Para o registro das solicitações foi definido um fluxo capaz de associar cada solicitação a um solicitante previamente cadastrado.
+O processo definido foi:
+1.	Acesso ao módulo de solicitações;
+2.	Seleção da opção de nova solicitação;
+3.	Identificação do solicitante;
+4.	Escolha da categoria;
+5.	Registro da descrição;
+6.	Definição dos critérios utilizados para cálculo da prioridade;
+7.	Cálculo automático da prioridade;
+8.	Armazenamento da solicitação;
+9.	Retorno ao menu anterior.
+Essa funcionalidade contempla os requisitos RF02 – Abertura de Solicitação e RF03 – Prioridade Automática.
+
+### 4.6 Fluxo de Consultas
+Também foi definido um módulo destinado à consulta e acompanhamento das solicitações registradas no sistema.
+As funcionalidades previstas incluem:
+•	Consulta geral das solicitações;
+•	Consultas utilizando filtros;
+•	Atualização das informações registradas;
+•	Acompanhamento do status das solicitações.
+O fluxo definido consiste em:
+1.	Acesso ao módulo de consultas;
+2.	Seleção do tipo de consulta desejada;
+3.	Aplicação dos filtros necessários;
+4.	Visualização dos resultados;
+5.	Retorno ao menu anterior.
+
+### 4.7 Fluxo de Estatísticas
+Durante a reunião também foi definida uma funcionalidade destinada à geração de informações estatísticas relacionadas aos dados armazenados pela aplicação.
+O fluxo planejado consiste em:
+1.	Acesso ao módulo de estatísticas;
+2.	Processamento das informações registradas;
+3.	Geração dos indicadores;
+4.	Exibição dos resultados;
+5.	Retorno ao menu principal.
+
+Essa funcionalidade também está vinculada ao requisito funcional RF04, permitindo a análise dos dados cadastrados no sistema.
+
+### 4.8 Resultados Obtidos
+Ao final da quarta reunião, a equipe concluiu a definição da estrutura de navegação da aplicação e dos fluxos de utilização das principais funcionalidades do sistema.
+Também foi realizado o mapeamento entre os módulos disponíveis e os requisitos funcionais previamente definidos, garantindo que todas as funcionalidades previstas pudessem ser acessadas de forma organizada por meio da interface textual.
+As definições estabelecidas nesta etapa serviram como base para a implementação dos menus e para o desenvolvimento das operações que compõem o sistema.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
