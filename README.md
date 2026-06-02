@@ -152,14 +152,14 @@ Ao final da reunião, foram identificadas e organizadas as principais informaç�
 Os dados levantados forneceram uma visão mais detalhada dos requisitos funcionais e serviram como base para as etapas seguintes do projeto, contribuindo para o planejamento da estrutura que seria utilizada para armazenamento e gerenciamento das informações.
 Com isso, a equipe passou a ter uma compreensão mais clara dos dados envolvidos no processo e dos elementos necessários para o desenvolvimento da aplicação.
 
-4.	TERCEIRA REUNIÃO – ESTRUTURAÇÃO DOS DADOS E PLANEJAMENTO DO FLUXO
+# 3.	TERCEIRA REUNIÃO – ESTRUTURAÇÃO DOS DADOS E PLANEJAMENTO DO FLUXO
 
-4.1 Objetivo da Reunião
+### 3.1 Objetivo da Reunião
 A terceira reunião teve como objetivo organizar as informações levantadas anteriormente e transformá-las em estruturas de dados mais definidas para utilização no sistema.
 Durante essa etapa, a equipe analisou quais campos seriam necessários para armazenar as informações de cada funcionalidade, definiu os relacionamentos entre os dados e iniciou o planejamento da estrutura que seria utilizada para armazenamento das informações.
 Essas definições serviriam como base para a modelagem do banco de dados e para o desenvolvimento das funcionalidades previstas nos requisitos do projeto.
 
-4.2 Estrutura dos Dados de Solicitante
+### 3.2 Estrutura dos Dados de Solicitante
 A partir do requisito funcional relacionado ao cadastro de solicitantes, foram definidos os dados necessários para identificação e contato dos usuários.
 Os campos planejados foram:
 | Campo	| Tipo de Dado	| Descrição	| Chave |
@@ -174,7 +174,7 @@ A definição desses campos buscou garantir que cada solicitante pudesse ser ide
 
 Observa-se que os campos definidos durante a etapa de planejamento foram posteriormente utilizados na estrutura de armazenamento dos solicitantes.
 
-4.3 Estrutura dos Dados de Categoria
+### 3.3 Estrutura dos Dados de Categoria
 Durante a reunião também foi definida uma estrutura destinada à classificação das solicitações por categoria.
 Os campos planejados foram:
 | Campo	| Tipo de Dado |	Descrição	| Chave |
@@ -192,7 +192,7 @@ As categorias planejadas foram:
 
 A definição prévia dessas categorias contribuiu para padronizar os registros e facilitar futuras consultas e análises.
 
-4.4 Estrutura dos Dados de Solicitação
+### 3.4 Estrutura dos Dados de Solicitação
 A principal estrutura do sistema foi definida para armazenar as solicitações abertas pelos usuários.
 Os campos identificados como necessários foram:
 Campo	Tipo de Dado	Descrição	Chave
@@ -207,7 +207,7 @@ Essa estrutura foi planejada para concentrar as principais informações manipul
 
 A estrutura definida contempla as informações necessárias para o funcionamento dos requisitos relacionados ao registro e acompanhamento das solicitações.
 
-4.5 Relacionamento entre os Dados
+### 3.5 Relacionamento entre os Dados
 Após a definição das estruturas, foram analisados os relacionamentos existentes entre os dados.
 Foi estabelecido que um solicitante poderia possuir várias solicitações associadas, enquanto cada solicitação estaria vinculada a apenas um solicitante.
 Também foi definido que cada solicitação deveria pertencer a uma categoria específica, sendo possível que uma mesma categoria fosse utilizada em diversas solicitações.
@@ -215,7 +215,7 @@ A definição desses relacionamentos foi considerada importante para garantir a 
 
 Essas restrições garantem que as solicitações cadastradas estejam sempre associadas a um solicitante e a uma categoria válida.
 
-4.6 Planejamento Inicial da Estrutura do Sistema
+### 3.6 Planejamento Inicial da Estrutura do Sistema
 Além da organização dos dados, a equipe iniciou o planejamento da estrutura geral da aplicação, identificando os módulos necessários para atender aos requisitos funcionais.
 Foram definidos os seguintes componentes principais:
 •	Cadastro de solicitantes;
@@ -225,7 +225,7 @@ Foram definidos os seguintes componentes principais:
 •	Controle de prioridade automática.
 Essa organização permitiu visualizar de forma mais clara como os dados seriam utilizados pelas funcionalidades previstas para o sistema.
 
-4.7 Resultados Obtidos
+### 3.7 Resultados Obtidos
 Ao final da reunião, a equipe concluiu a definição das principais estruturas de dados necessárias para o sistema, bem como os relacionamentos existentes entre elas.
 Também foram definidas as categorias iniciais que seriam utilizadas na classificação das solicitações e estabelecida a base para a modelagem do banco de dados.
 As decisões tomadas nesta etapa forneceram os elementos necessários para dar continuidade ao desenvolvimento do sistema e à implementação das funcionalidades previstas nos requisitos funcionais.
