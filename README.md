@@ -98,6 +98,69 @@ Entre os principais resultados alcançados destacam-se:
 •	Organização das tarefas no GitHub Project. 
 Com essas definições, o projeto passou a contar com uma estrutura organizada para apoiar as próximas etapas de desenvolvimento.
 
+# 2.	SEGUNDA REUNIÃO – LEVANTAMENTO DAS INFORMAÇÕES NECESSÁRIAS
+
+### 2.1 Objetivo da Reunião
+A segunda reunião do Projeto Integrador I teve como objetivo detalhar os requisitos funcionais definidos anteriormente, identificando quais informações seriam necessárias para o funcionamento adequado de cada funcionalidade do sistema.
+Nessa etapa, a equipe concentrou seus esforços em compreender quais dados deveriam ser coletados, armazenados e utilizados pela aplicação, estabelecendo uma base para as próximas fases do projeto.
+
+### 2.2 RF01 – Cadastro de Solicitante
+Para atender ao requisito de cadastro de solicitantes, foram discutidas as informações necessárias para identificar e manter os dados básicos dos usuários que utilizariam o sistema.
+Após análise, foram definidos os seguintes dados:
+•	Nome;
+•	E-mail;
+•	Telefone.
+Essas informações foram consideradas suficientes para permitir a identificação dos solicitantes e possibilitar futuras associações com as solicitações registradas no sistema.
+
+### 2.3 RF02 – Abertura de Solicitação
+Durante a análise do processo de abertura de solicitações, foram identificados os dados necessários para registrar adequadamente cada solicitação.
+As informações levantadas foram:
+•	Solicitante responsável;
+•	Categoria da solicitação;
+•	Descrição da solicitação;
+•	Data de abertura;
+•	Status da solicitação.
+A definição desses dados teve como objetivo garantir que cada solicitação pudesse ser registrada e acompanhada de maneira organizada durante seu ciclo de atendimento.
+
+### 2.4 RF03 – Prioridade Automática
+Para o requisito relacionado à definição de prioridade, foi discutida a necessidade de padronizar a classificação das solicitações.
+A equipe definiu que a prioridade não seria informada diretamente pelo usuário, mas calculada automaticamente pelo sistema com base em critérios previamente estabelecidos.
+Foram definidos três níveis de prioridade:
+•	Baixa;
+•	Média;
+•	Alta.
+Essa abordagem foi considerada adequada por proporcionar maior consistência na classificação das solicitações e reduzir possíveis divergências de interpretação por parte dos usuários.
+
+### 2.5 RF04 – Consultas e Estatísticas
+Também foram discutidas as informações que deveriam estar disponíveis para consulta durante a utilização do sistema.
+Entre as funcionalidades previstas destacam-se:
+•	Consulta de solicitações cadastradas;
+•	Consulta por status;
+•	Consulta por prioridade;
+•	Consulta por categoria;
+•	Visualização de informações estatísticas relacionadas aos registros realizados.
+Esses recursos foram considerados importantes para facilitar o acompanhamento das solicitações e fornecer uma visão geral dos dados armazenados pela aplicação.
+
+### 2.6 Consolidação dos Dados Necessários
+Após o levantamento das informações relacionadas a cada requisito funcional, foi realizada uma consolidação dos dados identificados durante a reunião.
+Nessa etapa, a equipe organizou os elementos que seriam necessários para representar os solicitantes, as solicitações e suas respectivas classificações dentro do sistema.
+Foram agrupadas as informações de identificação dos usuários, os dados relacionados às solicitações e os elementos utilizados para classificação, acompanhamento e consulta dos registros.
+Essa consolidação permitiu visualizar de forma mais clara quais informações deveriam ser armazenadas pela aplicação, servindo como referência para as próximas etapas de análise e estruturação dos dados do projeto.
+
+### 2.7 Resultados Obtidos
+Ao final da reunião, foram identificadas e organizadas as principais informações necessárias para o funcionamento das funcionalidades previstas no sistema.
+Os dados levantados forneceram uma visão mais detalhada dos requisitos funcionais e serviram como base para as etapas seguintes do projeto, contribuindo para o planejamento da estrutura que seria utilizada para armazenamento e gerenciamento das informações.
+Com isso, a equipe passou a ter uma compreensão mais clara dos dados envolvidos no processo e dos elementos necessários para o desenvolvimento da aplicação.
+
+
+
+
+
+
+
+
+
+
 
 
 
